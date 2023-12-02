@@ -17,22 +17,26 @@ class LinkedList {
         this.head = null;
     }
 
-    // Method to insert a new node after a specific value
-    public void insertAfter(int previousValue, int data) {
+    // Method to insert a new node at the end of the linked list
+    public void insert(int data) {
         Node newNode = new Node(data);
-        Node current = head;
-
-        // Find the node with the previous value
-        while (current != null && current.data != previousValue) {
-            current = current.next;
-        }
-
-        // If the node is found, insert the new node after it
-        if (current != null) {
-            newNode.next = current.next;
-            current.next = newNode;
+        if (head == null) {
+            head = newNode;
         } else {
-            System.out.println("Previous value " + previousValue + " not found in the linked list.");
+            Node current = head;
+            while (current.next != null) {
+                current = current.next;
+            }
+            current.next = newNode;
+        }
+    }
+
+    // Method to delete the first element (pop) and update the head
+    public void pop() {
+        if (head != null) {
+            head = head.next;
+        } else {
+            System.out.println("Cannot pop from an empty linked list.");
         }
     }
 
@@ -52,11 +56,19 @@ public class LinkedListProgram {
         LinkedList linkedList = new LinkedList();
 
         // Inserting elements into the linked list
-        linkedList.insertAfter(56, 30); // Inserting 30 after 56
-        linkedList.insertAfter(30, 70); // Inserting 70 after 30
+        linkedList.insert(56);
+        linkedList.insert(30);
+        linkedList.insert(70);
 
-        // Displaying the elements of the linked list
-        System.out.print("Linked List: ");
+        // Displaying the elements of the linked list before popping
+        System.out.print("Linked List before pop: ");
+        linkedList.display();
+
+        // Deleting the first element (pop)
+        linkedList.pop();
+
+        // Displaying the elements of the linked list after popping
+        System.out.print("Linked List after pop: ");
         linkedList.display();
     }
 }
