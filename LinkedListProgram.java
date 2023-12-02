@@ -1,88 +1,72 @@
-// Main.java
+public class LinkedListProgram {
 
-class Node {
-    int data;
-    Node next;
+    // Node class to represent each element in the linked list
+    static class Node<T extends Comparable<T>> {
+        T data;
+        Node<T> next;
 
-    public Node(int data) {
-        this.data = data;
-        this.next = null;
-    }
-}
-
-class LinkedList {
-    Node head;
-
-    public LinkedList() {
-        this.head = null;
+        // Constructor to initialize a node with data
+        public Node(T data) {
+            this.data = data;
+            this.next = null;
+        }
     }
 
-    // Method to insert a new node at the end of the linked list
-    public void insert(int data) {
-        Node newNode = new Node(data);
-        if (head == null) {
-            head = newNode;
-        } else {
-            Node current = head;
-            while (current.next != null) {
+    // SortedLinkedList class to represent the ordered linked list
+    static class SortedLinkedList<T extends Comparable<T>> {
+        Node<T> head;
+
+        // Constructor to initialize an empty linked list
+        public SortedLinkedList() {
+            this.head = null;
+        }
+
+        // Method to insert a new node in sorted order
+        public void add(T data) {
+            Node<T> newNode = new Node<>(data);
+
+            // If the list is empty or the new node is smaller than the head
+            if (head == null || data.compareTo(head.data) < 0) {
+                newNode.next = head;
+                head = newNode;
+                return;
+            }
+
+            // Find the appropriate position to insert the new node
+            Node<T> current = head;
+            while (current.next != null && data.compareTo(current.next.data) > 0) {
                 current = current.next;
             }
+
+            // Insert the new node
+            newNode.next = current.next;
             current.next = newNode;
         }
+
+        // Method to display the elements of the linked list
+        public void display() {
+            Node<T> current = head;
+            while (current != null) {
+                System.out.print(current.data);
+                if (current.next != null) {
+                    System.out.print(" -> ");
+                }
+                current = current.next;
+            }
+            System.out.println();
+        }
     }
 
-    // Method to delete the last element (popLast) and update the tail
-    public void popLast() {
-        if (head == null) {
-            System.out.println("Cannot popLast from an empty linked list.");
-            return;
-        }
-
-        if (head.next == null) {
-            // If there is only one element in the list, set head to null
-            head = null;
-            return;
-        }
-
-        // Traverse the list to find the second-to-last node
-        Node current = head;
-        while (current.next.next != null) {
-            current = current.next;
-        }
-
-        // Set the next of the second-to-last node to null
-        current.next = null;
-    }
-
-    // Method to display the elements of the linked list
-    public void display() {
-        Node current = head;
-        while (current != null) {
-            System.out.print(current.data + "->");
-            current = current.next;
-        }
-        System.out.println("null");
-    }
-}
-
-public class LinkedListProgram {
     public static void main(String[] args) {
-        LinkedList linkedList = new LinkedList();
+        // Creating a sorted linked list
+        SortedLinkedList<Integer> sortedLinkedList = new SortedLinkedList<>();
+        sortedLinkedList.add(56);
+        sortedLinkedList.add(30);
+        sortedLinkedList.add(40);
+        sortedLinkedList.add(70);
 
-        // Inserting elements into the linked list
-        linkedList.insert(56);
-        linkedList.insert(30);
-        linkedList.insert(70);
-
-        // Displaying the elements of the linked list before popLast
-        System.out.print("Linked List before popLast: ");
-        linkedList.display();
-
-        // Deleting the last element (popLast)
-        linkedList.popLast();
-
-        // Displaying the elements of the linked list after popLast
-        System.out.print("Linked List after popLast: ");
-        linkedList.display();
+        // Displaying the elements of the sorted linked list
+        System.out.print("Sorted Linked List: ");
+        sortedLinkedList.display();
     }
 }
