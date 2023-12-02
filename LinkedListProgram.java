@@ -85,6 +85,36 @@ public class LinkedListProgram {
         }
     }
 
+    // Queue class that internally uses a LinkedList
+    static class Queue<T extends Comparable<T>> {
+        LinkedList<T> linkedList;
+
+        // Constructor to initialize a queue with an empty linked list
+        public Queue() {
+            this.linkedList = new LinkedList<>();
+        }
+
+        // Method to enqueue an element into the queue
+        public void enqueue(T data) {
+            linkedList.add(data);
+        }
+
+        // Method to dequeue an element from the queue
+        public T dequeue() {
+            if (linkedList.head == null) {
+                throw new IllegalStateException("Queue is empty");
+            }
+            T data = linkedList.head.data;
+            linkedList.head = linkedList.head.next;
+            return data;
+        }
+
+        // Method to display the elements of the queue
+        public void display() {
+            linkedList.display();
+        }
+    }
+
     public static void main(String[] args) {
         // Creating a stack using a linked list
         Stack<Integer> stack = new Stack<>();
@@ -102,6 +132,23 @@ public class LinkedListProgram {
         while (!stack.isEmpty()) {
             System.out.println("Peek: " + stack.peek());
             System.out.println("Pop: " + stack.pop());
+        }
+
+        // Creating a queue using a linked list
+        Queue<Integer> queue = new Queue<>();
+
+        // Enqueuing elements into the queue
+        queue.enqueue(56);
+        queue.enqueue(30);
+        queue.enqueue(70);
+
+        // Displaying the elements of the queue
+        System.out.print("Queue: ");
+        queue.display();
+
+        // Dequeuing elements from the queue until it is empty
+        while (!queue.isEmpty()) {
+            System.out.println("Dequeue: " + queue.dequeue());
         }
     }
 }
