@@ -1,5 +1,3 @@
-// Main.java
-
 class Node {
     int data;
     Node next;
@@ -31,58 +29,53 @@ class LinkedList {
         }
     }
 
-    // Method to delete the last element (popLast) and update the tail
-    public void popLast() {
-        if (head == null) {
-            System.out.println("Cannot popLast from an empty linked list.");
-            return;
-        }
-
-        if (head.next == null) {
-            // If there is only one element in the list, set head to null
-            head = null;
-            return;
-        }
-
-        // Traverse the list to find the second-to-last node
+    // Method to search for a node with a specific value
+    public Node search(int key) {
         Node current = head;
-        while (current.next.next != null) {
+        while (current != null) {
+            if (current.data == key) {
+                return current;
+            }
             current = current.next;
         }
-
-        // Set the next of the second-to-last node to null
-        current.next = null;
+        return null; // Return null if the key is not found
     }
 
     // Method to display the elements of the linked list
     public void display() {
         Node current = head;
         while (current != null) {
-            System.out.print(current.data + "->");
+            System.out.print(current.data);
+            if (current.next != null) {
+                System.out.print(" -> ");
+            }
             current = current.next;
         }
-        System.out.println("null");
+        System.out.println();
     }
 }
 
 public class LinkedListProgram {
     public static void main(String[] args) {
+        // Creating a linked list
         LinkedList linkedList = new LinkedList();
-
-        // Inserting elements into the linked list
         linkedList.insert(56);
         linkedList.insert(30);
         linkedList.insert(70);
 
-        // Displaying the elements of the linked list before popLast
-        System.out.print("Linked List before popLast: ");
+        // Displaying the elements of the linked list
+        System.out.print("Linked List: ");
         linkedList.display();
 
-        // Deleting the last element (popLast)
-        linkedList.popLast();
+        // Searching for a node with value 30
+        int keyToSearch = 30;
+        Node foundNode = linkedList.search(keyToSearch);
 
-        // Displaying the elements of the linked list after popLast
-        System.out.print("Linked List after popLast: ");
-        linkedList.display();
+        // Displaying the result of the search
+        if (foundNode != null) {
+            System.out.println("Node with value " + keyToSearch + " found.");
+        } else {
+            System.out.println("Node with value " + keyToSearch + " not found.");
+        }
     }
 }
