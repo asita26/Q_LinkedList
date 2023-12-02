@@ -1,4 +1,5 @@
 public class LinkedListProgram {
+
     // Node class to represent each element in the linked list
     static class Node {
         int data;
@@ -46,16 +47,37 @@ public class LinkedListProgram {
             return null; // Return null if the key is not found
         }
 
-        // Method to insert a new node after a given node
-        public void insertAfter(Node prevNode, int data) {
-            if (prevNode == null) {
-                System.out.println("Previous node cannot be null.");
-                return;
+        // Method to delete a node by value
+        public void delete(int key) {
+            Node current = head;
+            Node prev = null;
+
+            // Find the node to be deleted and its previous node
+            while (current != null && current.data != key) {
+                prev = current;
+                current = current.next;
             }
 
-            Node newNode = new Node(data);
-            newNode.next = prevNode.next;
-            prevNode.next = newNode;
+            // If the node with the key is found, delete it
+            if (current != null) {
+                // If the node to be deleted is the head
+                if (prev == null) {
+                    head = current.next;
+                } else {
+                    prev.next = current.next;
+                }
+            }
+        }
+
+        // Method to calculate the size of the linked list
+        public int size() {
+            int count = 0;
+            Node current = head;
+            while (current != null) {
+                count++;
+                current = current.next;
+            }
+            return count;
         }
 
         // Method to display the elements of the linked list
@@ -77,25 +99,30 @@ public class LinkedListProgram {
         LinkedList linkedList = new LinkedList();
         linkedList.insert(56);
         linkedList.insert(30);
+        linkedList.insert(40);
         linkedList.insert(70);
 
-        // Displaying the elements of the linked list before insertion
-        System.out.print("Linked List before insertion: ");
+        // Displaying the elements of the linked list before deletion
+        System.out.print("Linked List before deletion: ");
         linkedList.display();
 
-        // Searching for a node with value 30
-        int keyToSearch = 30;
-        Node foundNode = linkedList.search(keyToSearch);
+        // Searching for a node with value 40
+        int keyToDelete = 40;
+        Node foundNode = linkedList.search(keyToDelete);
 
-        // Inserting 40 after the node with value 30
+        // Deleting the node with value 40
         if (foundNode != null) {
-            linkedList.insertAfter(foundNode, 40);
+            linkedList.delete(keyToDelete);
+            System.out.println("Node with value " + keyToDelete + " deleted.");
         } else {
-            System.out.println("Node with value " + keyToSearch + " not found.");
+            System.out.println("Node with value " + keyToDelete + " not found.");
         }
 
-        // Displaying the elements of the linked list after insertion
-        System.out.print("Linked List after insertion: ");
+        // Displaying the elements of the linked list after deletion
+        System.out.print("Linked List after deletion: ");
         linkedList.display();
+
+        // Displaying the size of the linked list
+        System.out.println("Linked List size: " + linkedList.size());
     }
 }
