@@ -31,13 +31,27 @@ class LinkedList {
         }
     }
 
-    // Method to delete the first element (pop) and update the head
-    public void pop() {
-        if (head != null) {
-            head = head.next;
-        } else {
-            System.out.println("Cannot pop from an empty linked list.");
+    // Method to delete the last element (popLast) and update the tail
+    public void popLast() {
+        if (head == null) {
+            System.out.println("Cannot popLast from an empty linked list.");
+            return;
         }
+
+        if (head.next == null) {
+            // If there is only one element in the list, set head to null
+            head = null;
+            return;
+        }
+
+        // Traverse the list to find the second-to-last node
+        Node current = head;
+        while (current.next.next != null) {
+            current = current.next;
+        }
+
+        // Set the next of the second-to-last node to null
+        current.next = null;
     }
 
     // Method to display the elements of the linked list
@@ -60,15 +74,15 @@ public class LinkedListProgram {
         linkedList.insert(30);
         linkedList.insert(70);
 
-        // Displaying the elements of the linked list before popping
-        System.out.print("Linked List before pop: ");
+        // Displaying the elements of the linked list before popLast
+        System.out.print("Linked List before popLast: ");
         linkedList.display();
 
-        // Deleting the first element (pop)
-        linkedList.pop();
+        // Deleting the last element (popLast)
+        linkedList.popLast();
 
-        // Displaying the elements of the linked list after popping
-        System.out.print("Linked List after pop: ");
+        // Displaying the elements of the linked list after popLast
+        System.out.print("Linked List after popLast: ");
         linkedList.display();
     }
 }
