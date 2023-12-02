@@ -1,3 +1,5 @@
+// Main.java
+
 // Node class to represent each element in the linked list
 class Node {
     int data;
@@ -43,6 +45,7 @@ class LinkedList {
         System.out.println();
     }
 }
+
 // Main class to test the linked list
 public class LinkedListProgram {
     public static void main(String[] args) {
