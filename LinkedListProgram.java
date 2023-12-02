@@ -66,7 +66,6 @@ public class LinkedListProgram {
             return data;
         }
 
-
         // Method to peek at the top element of the stack without removing it
         public T peek() {
             if (linkedList.head == null) {
@@ -74,7 +73,6 @@ public class LinkedListProgram {
             }
             return linkedList.head.data;
         }
-
 
         // Method to check if the stack is empty
         public boolean isEmpty() {
@@ -100,20 +98,10 @@ public class LinkedListProgram {
         System.out.print("Stack: ");
         stack.display();
 
-
         // Peeking and popping elements from the stack until it is empty
         while (!stack.isEmpty()) {
             System.out.println("Peek: " + stack.peek());
             System.out.println("Pop: " + stack.pop());
         }
-
-        // Popping an element from the stack
-        int poppedElement = stack.pop();
-        System.out.println("Popped Element: " + poppedElement);
-
-        // Displaying the elements of the stack after popping
-        System.out.print("Stack after popping: ");
-        stack.display();
-
     }
 }
