@@ -12,35 +12,20 @@ public class LinkedListProgram {
         }
     }
 
-    // SortedLinkedList class to represent the ordered linked list
-    static class SortedLinkedList<T extends Comparable<T>> {
+    // LinkedList class to represent the linked list and perform operations
+    static class LinkedList<T extends Comparable<T>> {
         Node<T> head;
 
         // Constructor to initialize an empty linked list
-        public SortedLinkedList() {
+        public LinkedList() {
             this.head = null;
         }
 
-        // Method to insert a new node in sorted order
+        // Method to insert a new node at the beginning of the linked list
         public void add(T data) {
             Node<T> newNode = new Node<>(data);
-
-            // If the list is empty or the new node is smaller than the head
-            if (head == null || data.compareTo(head.data) < 0) {
-                newNode.next = head;
-                head = newNode;
-                return;
-            }
-
-            // Find the appropriate position to insert the new node
-            Node<T> current = head;
-            while (current.next != null && data.compareTo(current.next.data) > 0) {
-                current = current.next;
-            }
-
-            // Insert the new node
-            newNode.next = current.next;
-            current.next = newNode;
+            newNode.next = head;
+            head = newNode;
         }
 
         // Method to display the elements of the linked list
@@ -57,16 +42,60 @@ public class LinkedListProgram {
         }
     }
 
-    public static void main(String[] args) {
-        // Creating a sorted linked list
-        SortedLinkedList<Integer> sortedLinkedList = new SortedLinkedList<>();
-        sortedLinkedList.add(56);
-        sortedLinkedList.add(30);
-        sortedLinkedList.add(40);
-        sortedLinkedList.add(70);
+    // Stack class that internally uses a LinkedList
+    static class Stack<T extends Comparable<T>> {
+        LinkedList<T> linkedList;
 
-        // Displaying the elements of the sorted linked list
-        System.out.print("Sorted Linked List: ");
-        sortedLinkedList.display();
+        // Constructor to initialize a stack with an empty linked list
+        public Stack() {
+            this.linkedList = new LinkedList<>();
+        }
+
+        // Method to push an element onto the stack
+        public void push(T data) {
+            linkedList.add(data);
+        }
+
+        // Method to pop an element from the stack
+        public T pop() {
+            if (linkedList.head == null) {
+                throw new IllegalStateException("Stack is empty");
+            }
+            T data = linkedList.head.data;
+            linkedList.head = linkedList.head.next;
+            return data;
+        }
+
+        // Method to check if the stack is empty
+        public boolean isEmpty() {
+            return linkedList.head == null;
+        }
+
+        // Method to display the elements of the stack
+        public void display() {
+            linkedList.display();
+        }
+    }
+
+    public static void main(String[] args) {
+        // Creating a stack using a linked list
+        Stack<Integer> stack = new Stack<>();
+
+        // Pushing elements onto the stack
+        stack.push(70);
+        stack.push(30);
+        stack.push(56);
+
+        // Displaying the elements of the stack
+        System.out.print("Stack: ");
+        stack.display();
+
+        // Popping an element from the stack
+        int poppedElement = stack.pop();
+        System.out.println("Popped Element: " + poppedElement);
+
+        // Displaying the elements of the stack after popping
+        System.out.print("Stack after popping: ");
+        stack.display();
     }
 }
