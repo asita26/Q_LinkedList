@@ -147,6 +147,7 @@ public class LinkedListProgram
         }
     }
 
+
     public static void main(String []args) {
         // Creating a stack using a linked list
         Stack<Integer> stack = new Stack<>();
@@ -178,11 +179,9 @@ public class LinkedListProgram
         System.out.print("Queue: ");
         queue.display();
 
-        // Dequeuing elements from the queue until it is empty
+        // De-queuing elements from the queue until it is empty
         while (!queue.isEmpty()) {
             System.out.println("Dequeue: " + queue.dequeue());
-
-
         }
     }
 }
